@@ -1,8 +1,14 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 
+interface UserType {
+  name: string;
+  email: string;
+  role: "admin" | "user";
+}
+
 interface AuthContextType {
   isAuthenticated: boolean;
-  user: { name: string; email: string; role: string } | null;
+  user: UserType | null;
   login: (username: string, password: string) => boolean;
   logout: () => void;
 }
@@ -17,15 +23,25 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState<AuthContextType["user"]>(null);
+  const [user, setUser] = useState<UserType | null>(null);
 
   const login = (username: string, password: string) => {
-    if (username === "admin" && password === "admin123") {
+    // Admin login
+    if (username === "admin123" && password === "admin123") {
       setIsAuthenticated(true);
-      setUser({ name: "Admin User", email: "admin@store.com", role: "Administrator" });
+      setUser({ name: "Admin User", email: "admin@store.com", role: "admin" });
       return true;
     }
-    return false;
+
+    // User login - check localStorage
+    const storedUser = JSON.parse(localStorage.getItem("userData") || "{}");
+    if (username === storedUser.email && password === storedUser.password) {
+      setIsAuthenticated(true);
+      setUser({ name: storedUser.email, email: storedUser.email, role: "user" });
+      return true;
+    }
+
+    return false; // invalid credentials
   };
 
   const logout = () => {

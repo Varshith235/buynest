@@ -6,7 +6,7 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
 } from "recharts";
 
-const COLORS = ["hsl(25 95% 53%)", "hsl(160 60% 45%)", "hsl(220 70% 55%)"];
+const COLORS = ["hsl(142, 95%, 53%)", "hsl(160 60% 45%)", "hsl(220 70% 55%)"];
 
 const topProducts = [
   { name: "MacBook Pro 16\"", orders: 340, revenue: 849660 },
@@ -31,15 +31,15 @@ const Analytics = () => (
           <AreaChart data={monthlySalesData}>
             <defs>
               <linearGradient id="revGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="hsl(25 95% 53%)" stopOpacity={0.3} />
-                <stop offset="100%" stopColor="hsl(25 95% 53%)" stopOpacity={0} />
+                <stop offset="0%" stopColor="hsl(64, 95%, 53%)" stopOpacity={0.3} />
+                <stop offset="100%" stopColor="hsl(106, 95%, 53%)" stopOpacity={0} />
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(220 13% 90%)" strokeOpacity={0.3} />
             <XAxis dataKey="name" fontSize={12} stroke="hsl(220 10% 46%)" />
             <YAxis fontSize={12} stroke="hsl(220 10% 46%)" tickFormatter={(v) => `$${v / 1000}k`} />
             <Tooltip contentStyle={{ background: "hsl(220 25% 9%)", border: "1px solid hsl(220 20% 16%)", borderRadius: "8px", color: "#fff" }} formatter={(v: number) => [`$${v.toLocaleString()}`, "Revenue"]} />
-            <Area type="monotone" dataKey="revenue" stroke="hsl(25 95% 53%)" fill="url(#revGrad)" strokeWidth={2} />
+            <Area type="monotone" dataKey="revenue" stroke="hsl(166, 66%, 40%)" fill="url(#revGrad)" strokeWidth={2} />
           </AreaChart>
         </ResponsiveContainer>
       </motion.div>
